@@ -3,8 +3,8 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'adobe_mobile_sdk_flutter'
-  s.version          = '0.0.1'
-  s.summary          = 'Adobe mobile SDK flutte'
+  s.version          = '0.0.2'
+  s.summary          = 'Adobe mobile SDK flutter'
   s.description      = <<-DESC
 A new flutter plugin project.
                        DESC

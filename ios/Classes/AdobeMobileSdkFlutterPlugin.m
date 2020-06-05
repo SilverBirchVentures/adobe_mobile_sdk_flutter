@@ -25,6 +25,9 @@
   else if ([@"trackCrash" isEqualToString:call.method]) {
     [self trackCrash:call result:result args:arguments];
   }
+  else if ([@"visitorAppendToURL" isEqualToString:call.method]) {
+    [self visitorAppendToURL:call result:result args:arguments];
+  }
   else {
     result(FlutterMethodNotImplemented);
   }
@@ -73,6 +76,17 @@
     [ADBMobile trackState:name data:contextData];
   }else{
     [ADBMobile trackAction:name data:contextData];
+  }
+}
+
+- (void)visitorAppendToURL:(FlutterMethodCall*)call result:(FlutterResult)result args:(NSDictionary*)args {
+  NSString *urlString = [args objectForKey:@"url"];
+  if (urlString != nil) {
+    NSURL *url = [NSURL URLWithString:urlString]; 
+    NSURL *urlWithVisitorData = [ADBMobile visitorAppendToURL:url]; 
+    result([urlWithVisitorData absoluteString]);
+  } else{
+    result([FlutterError errorWithCode:@"[ visitorAppendToUrl ERROR ] :: url is required" message: @"url is required" details: nil]);
   }
 }
 

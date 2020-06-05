@@ -80,4 +80,12 @@ class AdobeMobileSdkFlutter {
 
     return response;
   }
+
+  static Future<String> visitorAppendToUrl(String url) async {
+    final Map<String, dynamic> params = <String, dynamic>{"url": url};
+    
+    String response = await _channel.invokeMethod('visitorAppendToURL', params);
+
+    return response;
+  }
 }

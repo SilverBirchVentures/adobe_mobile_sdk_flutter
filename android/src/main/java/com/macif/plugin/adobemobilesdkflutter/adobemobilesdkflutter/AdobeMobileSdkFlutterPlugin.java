@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.adobe.mobile.Analytics;
 import com.adobe.mobile.Config;
+import com.adobe.mobile.Visitor;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,6 +63,9 @@ public class AdobeMobileSdkFlutterPlugin implements MethodCallHandler, FlutterPl
                 case "pauseLifecycleData":
                     handlerPauseLifecycle(call, result);
                     break;
+                case "visitorAppendToURL":
+                    handlerVisitorAppendToURL(call, result);
+                    break;
                 default:
                     result.notImplemented();
                     break;
@@ -117,5 +121,11 @@ public class AdobeMobileSdkFlutterPlugin implements MethodCallHandler, FlutterPl
         Map<String, Object> additionalData = call.argument("additionalData");
         Analytics.trackState(screenName, additionalData);
         result.success("screenName [" + screenName + "]");
+    }
+
+    public void handlerVisitorAppendToURL(MethodCall call, Result result) throws Exception {
+        String urlString = call.argument("url");
+        String urlStringWithVisitorData = Visitor.appendToURL(urlString); 
+        result.success(urlStringWithVisitorData);
     }
 }
